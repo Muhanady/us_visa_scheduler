@@ -230,7 +230,7 @@ def info_logger(file_path, log):
 
 
 if LOCAL_USE:
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
 else:
     driver = webdriver.Remote(command_executor=HUB_ADDRESS, options=webdriver.ChromeOptions())
 
@@ -291,10 +291,17 @@ if __name__ == "__main__":
                     info_logger(LOG_FILE_NAME, msg)
                     time.sleep(RETRY_WAIT_TIME)
         except:
-            # Exception Occured
-            msg = f"Break the loop after exception!\n"
-            END_MSG_TITLE = "EXCEPTION"
-            break
+            RETRY_EXCEPTION_WAIT = random.randint(50, 82)
+            print(f"Exception occurred. Waiting {RETRY_EXCEPTION_WAIT} seconds before retrying...")
+            time.sleep(RETRY_EXCEPTION_WAIT)
+            continue
+
+        #     # Exception Occured
+        #     msg = f"Break the loop after exception!\n"
+        #     END_MSG_TITLE = "EXCEPTION"
+        #     break
+            
+
 
 print(msg)
 info_logger(LOG_FILE_NAME, msg)

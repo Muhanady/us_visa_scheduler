@@ -1,0 +1,5 @@
+log_*
+config.ini
+__pycache__/*
+requirements.txt
+.vscode/settings.json
